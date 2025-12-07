@@ -21,17 +21,19 @@ export const getProjects = async (req, res) => {
 };
 
 // get only projects with a lable
-export const getProjectsByLabels = async (userId, labelsArray) => {
+export const getProjectsByLabels = async (req, res) => {
   try {
+    const labels = req.query.labels ? req.query.labels.split(",") : [];
     const projects = await Project.find({
-      userId: userId,
-      labels: { $in: labelsArray }
+      userId: req.user.id,
+      labels: { $in: labels }
     });
-    return projects;
+    res.json(projects);
   } catch (error) {
-    throw new Error(error.message);
+    res.status(500).json({ message: error.message });
   }
 };
+
 
 // update project
 export const updateProject = async (req, res) => {
