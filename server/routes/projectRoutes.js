@@ -1,12 +1,14 @@
-import express from "express";
-import {
+const express = require("express");
+
+const {
   createProject,
   getProjects,
   getProjectsByLabels,
   updateProject,
   deleteProject
-} from "../controllers/projectController.js";
-import authMiddleware from "../middleware/auth.js"; // to check if a user is connected
+} = require("../controllers/projectController.js");
+
+const authMiddleware = require("../middleware/auth.js");
 
 const router = express.Router();
 
